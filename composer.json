@@ -1,24 +1,27 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "taecontrol/histodata",
+    "description": "Laravel package to store historical data",
     "keywords": [
-        ":vendor_name",
+        "taecontrol",
         "laravel",
-        "package_slug"
+        "histodata"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/taecontrol/histodata",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Luis Güette",
+            "email": "lguette@taecontrol.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.0",
+        "illuminate/contracts": "^8.0",
+        "spatie/data-transfer-object": "^3.0",
+        "spatie/laravel-enum": "^2.4",
         "spatie/laravel-package-tools": "^1.4.3",
-        "illuminate/contracts": "^8.0"
+        "taecontrol/timescale": "9999999-dev"
     },
     "require-dev": {
         "brianium/paratest": "^6.2",
@@ -30,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Taecontrol\\Histodata\\": "src",
+            "Taecontrol\\Histodata\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Taecontrol\\Histodata\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -50,10 +53,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Taecontrol\\Histodata\\HistodataServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\SkeletonFacade"
+                "Histodata": "Taecontrol\\Histodata\\HistodataFacade"
             }
         }
     },

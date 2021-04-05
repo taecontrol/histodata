@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Taecontrol\Histodata\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class HistodataCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'histodata';
 
     public $description = 'My command';
 

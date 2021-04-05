@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Taecontrol\Histodata\Tests;
 
 class ExampleTest extends TestCase
 {
