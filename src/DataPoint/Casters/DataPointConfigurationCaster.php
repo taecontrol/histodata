@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataPoint\Casters;
 
-
 use Spatie\DataTransferObject\Caster;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\Enums\DataPointModelType;
@@ -11,7 +10,6 @@ use Taecontrol\Histodata\VirtualDataPoint\DataTransferObjects\VirtualDataPointCo
 
 class DataPointConfigurationCaster implements Caster
 {
-
     /**
      * @param mixed $value
      * @return VirtualDataPointConfigurationDTO

@@ -6,5 +6,4 @@ use Taecontrol\Timescale\Models\TimescaleModel;
 
 class AlphanumericPointValue extends TimescaleModel
 {
-
 }

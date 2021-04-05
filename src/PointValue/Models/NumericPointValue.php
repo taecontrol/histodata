@@ -6,5 +6,4 @@ use Taecontrol\Timescale\Models\TimescaleModel;
 
 class NumericPointValue extends TimescaleModel
 {
-
 }

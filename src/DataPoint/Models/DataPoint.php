@@ -7,5 +7,6 @@ use Taecontrol\Histodata\Support\Traits\UsesUuid;
 
 class DataPoint extends Model
 {
-    use HasFactory, UsesUuid;
+    use HasFactory;
+    use UsesUuid;
 }

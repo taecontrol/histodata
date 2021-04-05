@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataPoint\DataTransferObjects;
 
-
 use Spatie\DataTransferObject\DataTransferObject;
 use Taecontrol\Histodata\DataPoint\Enums\DataPointModelType;
 

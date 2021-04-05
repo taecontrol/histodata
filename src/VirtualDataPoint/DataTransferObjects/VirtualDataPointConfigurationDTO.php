@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\VirtualDataPoint\DataTransferObjects;
 
-
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointConfigurationDTO;
 
 class VirtualDataPointConfigurationDTO extends DataPointConfigurationDTO

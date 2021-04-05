@@ -11,5 +11,4 @@ use Spatie\Enum\Laravel\Enum;
  */
 class PointValueType extends Enum
 {
-
 }
