@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Taecontrol\Histodata\VirtualDataPoint\DataTransferObjects;
+namespace Taecontrol\Histodata\VirtualDataSource\DataTransferObjects;
 
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointConfigurationDTO;
 

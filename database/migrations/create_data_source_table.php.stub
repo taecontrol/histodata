@@ -5,15 +5,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Taecontrol\Timescale\Facades\Timescale;
 
-class CreateDataPointsTable extends Migration
+class CreateDataSourcesTable extends Migration
 {
     public function up()
     {
-        Schema::create('data_points', function (Blueprint $table) {
+        Schema::create('data_sources', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->uuid('data_source_id');
-            $table->string('data_type');
             $table->json('configuration');
 
             $table->timestamps();
