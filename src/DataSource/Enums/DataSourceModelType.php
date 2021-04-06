@@ -8,4 +8,6 @@ use Spatie\Enum\Laravel\Enum;
  * @method static self VIRTUAL()
  * @method static self MODBUS()
  */
-class DataSourceModelType extends Enum {}
+class DataSourceModelType extends Enum
+{
+}

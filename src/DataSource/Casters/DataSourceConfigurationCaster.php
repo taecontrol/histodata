@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataSource\Casters;
 
-
 use Spatie\DataTransferObject\Caster;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataSource\Enums\DataSourceModelType;

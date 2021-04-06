@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataSource\DataTransferObjects;
 
-
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\DataTransferObject;
 use Taecontrol\Histodata\DataSource\Casters\DataSourceConfigurationCaster;
