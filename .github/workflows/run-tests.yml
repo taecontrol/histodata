@@ -31,7 +31,7 @@ jobs:
 
       - name: Run timescale container
         run: |
-          docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:2.1.0-pg13
+          docker run --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:2.1.0-pg13
 
       - name: Check running container
         run: |
