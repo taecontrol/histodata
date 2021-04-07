@@ -33,10 +33,10 @@ jobs:
         run: |
           docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:2.1.0-pg13
 
-      - name: Sleep for 20 seconds
+      - name: Sleep for 10 seconds
         uses: whatnick/wait-action@v0.1.2
         with:
-          time: '20s'
+          time: '10s'
 
       - name: Check running container
         run: |
