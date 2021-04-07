@@ -39,7 +39,11 @@ jobs:
 
       - name: Create Database
         run: |
-          docker exec -d timescaledb psql -U postgres -c 'create database tests;'
+          docker exec timescaledb psql -U postgres -c 'create database tests;'
+
+      - name: Check if database exists
+        run: |
+          docker exec timescaledb psql -U postgres -c 'select datname from pg_database;'
 
       - name: Setup problem matchers
         run: |
