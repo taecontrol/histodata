@@ -32,9 +32,7 @@ jobs:
       - name: Run timescale container
         uses: docker://timescale/timescaledb:2.1.0-pg13
         with:
-          name: "timescaledb"
-          port: "5432:5432"
-          env: "POSTGRES_PASSWORD=password"
+          args: --name timescaledb -p 5432:5432 -e POSTGRESS_PASSWORD=password
           
       - name: Create Database
         run: |
