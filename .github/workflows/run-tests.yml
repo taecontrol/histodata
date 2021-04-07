@@ -33,6 +33,10 @@ jobs:
         run: |
           docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:2.1.0-pg13
 
+      - name: Check running container
+        run: |
+          docker ps
+
       - name: Create Database
         run: |
           docker exec -d timescaledb psql -U postgres -c 'create database tests;'
