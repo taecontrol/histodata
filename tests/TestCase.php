@@ -3,6 +3,7 @@
 namespace Taecontrol\Histodata\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Taecontrol\Histodata\HistodataServiceProvider;
 
@@ -26,16 +27,9 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
+        Schema::dropAllTables();
 
-        /*
-        include_once __DIR__.'/../database/migrations/create_histodata_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        include_once __DIR__.'/../database/migrations/create_histodata_tables.php.stub';
+        (new \CreateHistodataTables())->up();
     }
 }

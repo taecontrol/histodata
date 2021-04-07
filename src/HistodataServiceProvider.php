@@ -19,12 +19,7 @@ class HistodataServiceProvider extends PackageServiceProvider
             ->name('histodata')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigrations(
-                [
-                'create_numeric_point_values_table',
-                'create_binary_point_values_table',
-                'create_alphanumeric_point_values_table', ]
-            )
+            ->hasMigration('create_histodata_tables')
             ->hasCommand(HistodataCommand::class);
     }
 }

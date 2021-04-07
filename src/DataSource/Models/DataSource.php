@@ -7,6 +7,7 @@ use Taecontrol\Histodata\Support\Traits\UsesUuid;
 
 class DataSource extends Model
 {
-    use HasFactory;
-    use UsesUuid;
+    use HasFactory, UsesUuid;
+
+    protected $guarded = [];
 }
