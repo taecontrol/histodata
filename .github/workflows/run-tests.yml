@@ -33,18 +33,9 @@ jobs:
         run: |
           docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:2.1.0-pg13
 
-      - name: Sleep for 10 seconds
-        uses: whatnick/wait-action@v0.1.2
-        with:
-          time: '10s'
-
       - name: Check running container
         run: |
           docker ps
-
-      - name: Create Database
-        run: |
-          docker exec timescaledb psql -U postgres -c 'create database tests;'
 
       - name: Check if database exists
         run: |
@@ -59,6 +50,10 @@ jobs:
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+          
+      - name: Create Database
+        run: |
+          docker exec timescaledb psql -U postgres -c 'create database tests;'
 
       - name: Execute tests
         run: vendor/bin/phpunit
