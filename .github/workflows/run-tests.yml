@@ -30,10 +30,9 @@ jobs:
           coverage: none
 
       - name: Run timescale container
-        uses: docker://timescale/timescaledb:2.1.0-pg13
-        with:
-          args: --name timescaledb -p 5432:5432 -e POSTGRESS_PASSWORD=password
-          
+        run: |
+          docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:2.1.0-pg13
+
       - name: Create Database
         run: |
           docker exec -it timescaledb psql -U postgres -c 'create database tests;'
