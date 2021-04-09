@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\VirtualDataSource\Actions;
 
-
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
@@ -18,7 +17,7 @@ class StoreDataSource
         $dataSource = DataSource::create([
             'id' => $dataSourceDTO->id,
             'name' => $dataSourceDTO->name,
-            'configuration' => $dataSourceDTO->configuration->toArray()
+            'configuration' => $dataSourceDTO->configuration->toArray(),
         ]);
 
         return new DataSourceDTO(
