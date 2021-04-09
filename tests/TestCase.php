@@ -27,9 +27,11 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        Schema::dropAllTables();
-
         include_once __DIR__.'/../database/migrations/create_histodata_tables.php.stub';
-        (new \CreateHistodataTables())->up();
+
+        $histodataTables = new \CreateHistodataTables();
+        $histodataTables->down();
+
+        $histodataTables->up();
     }
 }

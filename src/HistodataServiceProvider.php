@@ -5,6 +5,7 @@ namespace Taecontrol\Histodata;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Taecontrol\Histodata\Commands\HistodataCommand;
+use Taecontrol\Histodata\Timescale\Timescale;
 
 class HistodataServiceProvider extends PackageServiceProvider
 {
@@ -21,5 +22,12 @@ class HistodataServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_histodata_tables')
             ->hasCommand(HistodataCommand::class);
+    }
+
+    public function packageRegistered()
+    {
+        $this->app->bind('timescale', function () {
+            return new Timescale();
+        });
     }
 }

@@ -3,36 +3,12 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Taecontrol\Timescale\Facades\Timescale;
+use Taecontrol\Histodata\Timescale\Facades\Timescale;
 
 class CreateHistodataTables extends Migration
 {
     public function up()
     {
-        Schema::create('numeric_point_values', function (Blueprint $table) {
-            $table->uuid('data_point_id');
-            $table->double('value');
-            $table->timestamp('timestamp');
-
-            Timescale::createHypertable('numeric_point_values', 'timestamp');
-        });
-
-        Schema::create('binary_point_values', function (Blueprint $table) {
-            $table->uuid('data_point_id');
-            $table->boolean('value');
-            $table->timestamp('timestamp');
-
-            Timescale::createHypertable('binary_point_values', 'timestamp');
-        });
-
-        Schema::create('alphanumeric_point_values', function (Blueprint $table) {
-            $table->uuid('data_point_id');
-            $table->string('value');
-            $table->timestamp('timestamp');
-
-            Timescale::createHypertable('alphanumeric_point_values', 'timestamp');
-        });
-
         Schema::create('data_sources', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
@@ -50,5 +26,40 @@ class CreateHistodataTables extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('numeric_point_values', function (Blueprint $table) {
+            $table->uuid('data_point_id');
+            $table->double('value');
+            $table->timestamp('timestamp');
+        });
+        Timescale::createHypertable('numeric_point_values', 'timestamp');
+
+        Schema::create('binary_point_values', function (Blueprint $table) {
+            $table->uuid('data_point_id');
+            $table->boolean('value');
+            $table->timestamp('timestamp');
+        });
+        Timescale::createHypertable('binary_point_values', 'timestamp');
+
+        Schema::create('alphanumeric_point_values', function (Blueprint $table) {
+            $table->uuid('data_point_id');
+            $table->string('value');
+            $table->timestamp('timestamp');
+        });
+        Timescale::createHypertable('alphanumeric_point_values', 'timestamp');
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('data_sources');
+        Schema::dropIfExists('data_points');
+        Schema::dropIfExists('numeric_point_values');
+        Schema::dropIfExists('binary_point_values');
+        Schema::dropIfExists('alphanumeric_point_values');
     }
 }

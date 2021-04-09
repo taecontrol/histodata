@@ -3,9 +3,9 @@
 
 namespace Taecontrol\Histodata\VirtualDataSource\DataTransferObjects;
 
-use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointConfigurationDTO;
+use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceConfigurationDTO;
 
-class VirtualDataSourceConfigurationDTO extends DataPointConfigurationDTO
+class VirtualDataSourceConfigurationDTO extends DataSourceConfigurationDTO
 {
     public bool $polling;
 }
