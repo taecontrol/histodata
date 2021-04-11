@@ -1,8 +1,9 @@
 <?php
 
-namespace Taecontrol\Histodata\Tests\VirtualDataSource\Actions;
+namespace Taecontrol\Histodata\Tests\DataSource\Actions;
 
 use Ramsey\Uuid\Uuid;
+use Taecontrol\Histodata\Database\Factories\DataSourceFactory;
 use Taecontrol\Histodata\DataSource\Actions\StoreDataSource;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
 use Taecontrol\Histodata\DataSource\Enums\DataSourceModelType;
@@ -12,16 +13,9 @@ use Taecontrol\Histodata\Tests\TestCase;
 class StoreDataSourceTest extends TestCase
 {
     /** @test */
-    public function it_stores_virtual_data_source_in_db()
+    public function it_stores_data_source_in_db(): void
     {
-        $dataSourceDTO = new DataSourceDTO(
-            id: Uuid::uuid4()->toString(),
-            name: 'Virtual DS Test',
-            configuration: [
-                'model_type' => DataSourceModelType::VIRTUAL(),
-                'polling' => true,
-            ]
-        );
+        $dataSourceDTO = (new DataSourceFactory())->dto();
 
         (new StoreDataSource())->execute($dataSourceDTO);
 
@@ -34,8 +28,8 @@ class StoreDataSourceTest extends TestCase
                 'name' => $newDataSource->name,
                 'configuration' => [
                     'model_type' => $newDataSource->configuration['model_type'],
-                    'polling' => $newDataSource->configuration['polling'],
-                ],
+                    'polling' => $newDataSource->configuration['polling']
+                ]
             ]
         );
     }
