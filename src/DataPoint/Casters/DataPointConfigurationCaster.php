@@ -11,14 +11,14 @@ use Taecontrol\Histodata\VirtualDataSource\DataTransferObjects\VirtualDataPointC
 class DataPointConfigurationCaster implements Caster
 {
     /**
-     * @param mixed $value
-     * @return VirtualDataPointConfigurationDTO
      * @throws UnknownProperties
      */
-    public function cast(mixed $value): VirtualDataPointConfigurationDTO
+    public function cast(mixed $value): VirtualDataPointConfigurationDTO | null
     {
-        return match ($value['model_type']) {
-            DataPointModelType::VIRTUAL() => new VirtualDataPointConfigurationDTO($value)
-        };
+        if (DataPointModelType::VIRTUAL()->equals($value['model_type'])) {
+            return new VirtualDataPointConfigurationDTO($value);
+        }
+
+        return null;
     }
 }

@@ -12,7 +12,7 @@ class StoreDataSource
     /**
      * @throws UnknownProperties
      */
-    public function execute(DataSourceDTO $dataSourceDTO): DataSourceDTO | null
+    public function execute(DataSourceDTO $dataSourceDTO): DataSourceDTO
     {
         $dataSource = DataSource::create([
             'id' => $dataSourceDTO->id,

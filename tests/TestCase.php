@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Spatie\\Histodata\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Taecontrol\\Histodata\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

@@ -11,8 +11,6 @@ use Taecontrol\Histodata\VirtualDataSource\DataTransferObjects\VirtualDataSource
 class DataSourceConfigurationCaster implements Caster
 {
     /**
-     * @param mixed $value
-     * @return VirtualDataSourceConfigurationDTO|null
      * @throws UnknownProperties
      */
     public function cast(mixed $value): VirtualDataSourceConfigurationDTO | null
