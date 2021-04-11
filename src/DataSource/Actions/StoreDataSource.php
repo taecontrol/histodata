@@ -5,8 +5,7 @@ namespace Taecontrol\Histodata\DataSource\Actions;
 
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
-use Taecontrol\Histodata\DataSource\Enums\DataSourceModelType;
-use Taecontrol\Histodata\VirtualDataSource\Actions\StoreDataSource as StoreVirtualDataSource;
+use Taecontrol\Histodata\DataSource\Models\DataSource;
 
 class StoreDataSource
 {
@@ -15,10 +14,16 @@ class StoreDataSource
      */
     public function execute(DataSourceDTO $dataSourceDTO): DataSourceDTO | null
     {
-        if (DataSourceModelType::VIRTUAL()->equals($dataSourceDTO->configuration->model_type)) {
-            (new StoreVirtualDataSource())->execute($dataSourceDTO);
-        }
+        $dataSource = DataSource::create([
+            'id' => $dataSourceDTO->id,
+            'name' => $dataSourceDTO->name,
+            'configuration' => $dataSourceDTO->configuration->toArray()
+        ]);
 
-        return null;
+        return new DataSourceDTO(
+            id: $dataSource->id,
+            name: $dataSource->name,
+            configuration: $dataSource->configuration
+        );
     }
 }
