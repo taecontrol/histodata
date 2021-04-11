@@ -2,7 +2,6 @@
 
 namespace Taecontrol\Histodata\Tests\PointValue\Actions;
 
-
 use Mockery\MockInterface;
 use Taecontrol\Histodata\Database\Factories\AlphanumericPointValueFactory;
 use Taecontrol\Histodata\Database\Factories\BinaryPointValueFactory;
@@ -26,7 +25,6 @@ class StorePointValueTest extends TestCase
         $this->action = app(StorePointValue::class);
     }
 
-
     /** @test */
     public function it_calls_store_numeric_point_value_action(): void
     {
@@ -35,7 +33,7 @@ class StorePointValueTest extends TestCase
         });
 
         $dataPoint = DataPoint::factory()->create([
-            'data_type' => PointValueType::NUMERIC()
+            'data_type' => PointValueType::NUMERIC(),
         ]);
 
         $data = (new NumericPointValueFactory())->dto([
@@ -53,7 +51,7 @@ class StorePointValueTest extends TestCase
         });
 
         $dataPoint = DataPoint::factory()->create([
-            'data_type' => PointValueType::ALPHANUMERIC()
+            'data_type' => PointValueType::ALPHANUMERIC(),
         ]);
 
         $data = (new AlphanumericPointValueFactory())->dto([
@@ -71,7 +69,7 @@ class StorePointValueTest extends TestCase
         });
 
         $dataPoint = DataPoint::factory()->create([
-            'data_type' => PointValueType::BINARY()
+            'data_type' => PointValueType::BINARY(),
         ]);
 
         $data = (new BinaryPointValueFactory())->dto([

@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\PointValue\Actions;
 
-
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
@@ -19,7 +18,7 @@ class StorePointValue
      * @throws UnknownProperties
      * @throws InvalidPointValueType
      */
-    public function execute(array $data): NumericPointValueDTO|AlphanumericPointValueDTO|BinaryPointValueDTO
+    public function execute(array $data): NumericPointValueDTO | AlphanumericPointValueDTO | BinaryPointValueDTO
     {
         $dataPointDTO = $this->getDataPoint($data['data_point_id']);
 
