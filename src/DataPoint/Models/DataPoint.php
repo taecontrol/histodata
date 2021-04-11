@@ -3,7 +3,10 @@ namespace Taecontrol\Histodata\DataPoint\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\Casters\DataPointModelConfigurationCaster;
+use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
+use Taecontrol\Histodata\PointValue\Enums\PointValueType;
 use Taecontrol\Histodata\Support\Traits\UsesUuid;
 
 class DataPoint extends Model
@@ -14,6 +17,21 @@ class DataPoint extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'data_type' => PointValueType::class,
         'configuration' => DataPointModelConfigurationCaster::class,
     ];
+
+    /**
+     * @throws UnknownProperties
+     */
+    public function toDTO(): DataPointDTO
+    {
+        return new DataPointDTO(
+            id: $this->id,
+            name: $this->name,
+            data_source_id: $this->data_source_id,
+            data_type: $this->data_type,
+            configuration: $this->configuration
+        );
+    }
 }
