@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\PointValue\DataTransferObjects;
 
-
 use Illuminate\Support\Carbon;
 use Spatie\DataTransferObject\DataTransferObject;
 

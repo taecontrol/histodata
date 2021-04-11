@@ -25,7 +25,7 @@ class StoreAlphanumericPointValueTest extends TestCase
             [
                 'value' => $pointValue->value,
                 'timestamp' => $pointValue->timestamp,
-                'data_point_id' => $pointValue->data_point_id
+                'data_point_id' => $pointValue->data_point_id,
             ]
         );
     }
