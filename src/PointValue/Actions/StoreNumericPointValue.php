@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\PointValue\Actions;
 
-
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\PointValue\DataTransferObjects\NumericPointValueDTO;
 use Taecontrol\Histodata\PointValue\Models\NumericPointValue;
@@ -18,7 +17,7 @@ class StoreNumericPointValue
         $pointValue = NumericPointValue::create([
             'value' => $numericPointValueDTO->value,
             'timestamp' => $numericPointValueDTO->timestamp,
-            'data_point_id' => $numericPointValueDTO->data_point_id
+            'data_point_id' => $numericPointValueDTO->data_point_id,
         ]);
 
         return new NumericPointValueDTO(
