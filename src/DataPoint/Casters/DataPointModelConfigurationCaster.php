@@ -3,13 +3,11 @@
 
 namespace Taecontrol\Histodata\DataPoint\Casters;
 
-
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Taecontrol\Histodata\DataPoint\Enums\DataPointModelType;
 
 class DataPointModelConfigurationCaster implements CastsAttributes
 {
-
     public function get($model, string $key, $value, array $attributes)
     {
         $valueCollection = collect(json_decode($value));

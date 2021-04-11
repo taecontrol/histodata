@@ -30,8 +30,8 @@ class StoreDataPointTest extends TestCase
                     'change_type' => $newDataPoint->configuration['change_type'],
                     'min' => $newDataPoint->configuration['min'],
                     'max' => $newDataPoint->configuration['max'],
-                    'max_change' => $newDataPoint->configuration['max_change']
-                ]
+                    'max_change' => $newDataPoint->configuration['max_change'],
+                ],
             ]
         );
     }

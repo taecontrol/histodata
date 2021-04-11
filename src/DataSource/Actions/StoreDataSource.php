@@ -17,7 +17,7 @@ class StoreDataSource
         $dataSource = DataSource::create([
             'id' => $dataSourceDTO->id,
             'name' => $dataSourceDTO->name,
-            'configuration' => $dataSourceDTO->configuration->toArray()
+            'configuration' => $dataSourceDTO->configuration->toArray(),
         ]);
 
         return new DataSourceDTO(

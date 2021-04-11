@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataPoint\Actions;
 
-
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
@@ -20,7 +19,7 @@ class StoreDataPoint
             'name' => $dataPointDTO->name,
             'data_source_id' => $dataPointDTO->data_source_id,
             'data_type' => $dataPointDTO->data_type,
-            'configuration' => $dataPointDTO->configuration->toArray()
+            'configuration' => $dataPointDTO->configuration->toArray(),
         ]);
 
         return new DataPointDTO(
