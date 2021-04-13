@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Ramsey\Uuid\Uuid;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
-use Taecontrol\Histodata\DataSource\Enums\DataSourceModelType;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
 
 
@@ -26,7 +25,7 @@ class DataSourceFactory extends Factory
     protected function virtualDataSourceConfiguration(): array
     {
         return [
-            'model_type' => DataSourceModelType::VIRTUAL(),
+            'model_type' => 'VIRTUAL',
             'polling' => true
         ];
     }

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Ramsey\Uuid\Uuid;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
-use Taecontrol\Histodata\DataPoint\Enums\DataPointModelType;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
 use Taecontrol\Histodata\PointValue\Enums\PointValueType;
@@ -34,7 +33,7 @@ class DataPointFactory extends Factory
     protected function virtualDataPointConfiguration(): array
     {
         return [
-            'model_type' => DataPointModelType::VIRTUAL(),
+            'model_type' => 'VIRTUAL',
             'change_type' => 'random',
             'min' => 0,
             'max' => 100,

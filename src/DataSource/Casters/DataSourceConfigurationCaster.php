@@ -4,19 +4,18 @@
 namespace Taecontrol\Histodata\DataSource\Casters;
 
 use Spatie\DataTransferObject\Caster;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
-use Taecontrol\Histodata\DataSource\Enums\DataSourceModelType;
-use Taecontrol\Histodata\VirtualDataSource\DataTransferObjects\VirtualDataSourceConfigurationDTO;
+use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceConfigurationDTO;
+use Taecontrol\Histodata\Facades\Histodata;
 
 class DataSourceConfigurationCaster implements Caster
 {
-    /**
-     * @throws UnknownProperties
-     */
-    public function cast(mixed $value): VirtualDataSourceConfigurationDTO | null
+    public function cast(mixed $value): DataSourceConfigurationDTO|null
     {
-        if (DataSourceModelType::VIRTUAL()->equals($value['model_type'])) {
-            return new VirtualDataSourceConfigurationDTO($value);
+        $modelType = $value['model_type'];
+
+        if (Histodata::dataSourceTypesContain($modelType)) {
+            $dtoClass = Histodata::getDataSourceConfigurationDTOClass($modelType);
+            return new $dtoClass($value);
         }
 
         return null;
