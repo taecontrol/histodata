@@ -38,6 +38,13 @@ class Histodata
         return $this->getDataSourceTypeKeys()->contains($dataSourceType);
     }
 
+    public function getDataSourceHandlerClass(string $dataSourceType): string
+    {
+        return $this->getDataSourceTypes()
+            ->get($dataSourceType)
+            ->get('handler');
+    }
+
     public function getDataSourceConfigurationDTOClass(string $dataSourceType): string
     {
         return $this->getDataSourceTypes()

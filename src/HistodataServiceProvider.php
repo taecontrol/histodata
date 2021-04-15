@@ -4,7 +4,7 @@ namespace Taecontrol\Histodata;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Taecontrol\Histodata\Commands\HistodataCommand;
+use Taecontrol\Histodata\Commands\PollDataCommand;
 use Taecontrol\Histodata\Facades\Histodata as HistodataFacade;
 use Taecontrol\Histodata\Timescale\Timescale;
 use Taecontrol\Histodata\VirtualDataSource\VirtualDataSourceHandler;
@@ -23,7 +23,7 @@ class HistodataServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_histodata_tables')
-            ->hasCommand(HistodataCommand::class);
+            ->hasCommand(PollDataCommand::class);
     }
 
     public function packageRegistered(): void

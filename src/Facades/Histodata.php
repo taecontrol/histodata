@@ -13,6 +13,7 @@ use Taecontrol\Histodata\DataSource\Support\DataSourceHandler;
  * @method static Collection getDataSourceTypes()
  * @method static Collection getDataSourceTypeKeys()
  * @method static bool dataSourceTypesContain(string $dataSourceType)
+ * @method static string getDataSourceHandlerClass(string $dataSourceType)
  * @method static string getDataSourceConfigurationDTOClass(string $dataSourceType)
  * @method static string getDataPointConfigurationDTOClass(string $dataSourceType)
  */
