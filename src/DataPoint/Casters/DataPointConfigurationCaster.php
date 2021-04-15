@@ -9,12 +9,13 @@ use Taecontrol\Histodata\Facades\Histodata;
 
 class DataPointConfigurationCaster implements Caster
 {
-    public function cast(mixed $value): DataPointConfigurationDTO|null
+    public function cast(mixed $value): DataPointConfigurationDTO | null
     {
         $modelType = $value['model_type'];
 
         if (Histodata::dataSourceTypesContain($modelType)) {
             $dtoClass = Histodata::getDataPointConfigurationDTOClass($modelType);
+
             return new $dtoClass($value);
         }
 

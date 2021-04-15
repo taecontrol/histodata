@@ -15,7 +15,7 @@ class DataSource extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'configuration' => 'array'
+        'configuration' => 'array',
     ];
 
     /**

@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataSource\Support;
 
-
 abstract class DataSourceHandler
 {
     abstract public function getType(): string;

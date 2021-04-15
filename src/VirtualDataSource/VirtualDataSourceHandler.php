@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\VirtualDataSource;
 
-
 use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -87,7 +86,7 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
         return DataPoint::query()
             ->where('data_source_id', $dataSourceDTO->id)
             ->get()
-            ->map(fn(DataPoint $point) => $point->toDTO());
+            ->map(fn (DataPoint $point) => $point->toDTO());
     }
 
     protected function getDataPointConfiguration(DataPointDTO $dataPointDTO): VirtualDataPointConfigurationDTO

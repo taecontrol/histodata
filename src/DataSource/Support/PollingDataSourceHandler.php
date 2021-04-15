@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataSource\Support;
 
-
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
 
 abstract class PollingDataSourceHandler extends DataSourceHandler

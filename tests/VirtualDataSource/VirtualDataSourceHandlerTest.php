@@ -20,7 +20,7 @@ class VirtualDataSourceHandlerTest extends TestCase
             ->count(3)
             ->create([
                 'data_source_id' => $dataSource->id,
-                'data_type' => PointValueType::NUMERIC()
+                'data_type' => PointValueType::NUMERIC(),
             ]);
 
         $dataPointHandler = new VirtualDataSourceHandler();

@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataSource\Jobs;
 
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,7 +14,10 @@ use Taecontrol\Histodata\Facades\Histodata;
 
 class PollData implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected DataSourceDTO $dataSourceDTO;
     protected PollingDataSourceHandler $dataSourceHandler;

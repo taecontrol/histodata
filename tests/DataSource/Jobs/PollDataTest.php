@@ -21,5 +21,4 @@ class PollDataTest extends TestCase
 
         PollData::dispatch($dataSource->toDTO());
     }
-
 }
