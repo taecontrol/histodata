@@ -6,7 +6,7 @@ use Taecontrol\Histodata\PointValue\Enums\PointValueType;
 use Taecontrol\Histodata\PointValue\Models\AlphanumericPointValue;
 use Taecontrol\Histodata\PointValue\Models\BinaryPointValue;
 use Taecontrol\Histodata\PointValue\Models\NumericPointValue;
-use Taecontrol\Timescale\Models\TimescaleModel;
+use Taecontrol\Histodata\Timescale\Models\TimescaleModel;
 
 class PointValue
 {
