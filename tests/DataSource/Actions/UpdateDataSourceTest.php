@@ -14,7 +14,7 @@ class UpdateDataSourceTest extends TestCase
         $dataSource = DataSource::factory()->create();
 
         $newDataSourceDTO = (new UpdateDataSource())->execute($dataSource, [
-            'name' => 'New name'
+            'name' => 'New name',
         ]);
 
         $this->assertEquals('New name', $newDataSourceDTO->name);

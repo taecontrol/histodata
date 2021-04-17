@@ -14,7 +14,7 @@ class UpdateDataSourceTest extends TestCase
         $dataPoint = DataPoint::factory()->create();
 
         $dataPointDTO = (new UpdateDataPoint())->execute($dataPoint, [
-            'name' => 'New name'
+            'name' => 'New name',
         ]);
 
         $this->assertEquals('New name', $dataPointDTO->name);

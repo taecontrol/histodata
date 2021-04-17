@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\DataPoint\Actions;
 
-
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
 
