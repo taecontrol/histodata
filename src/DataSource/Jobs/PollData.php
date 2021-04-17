@@ -19,7 +19,7 @@ class PollData implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    protected DataSourceDTO $dataSourceDTO;
+    public DataSourceDTO $dataSourceDTO;
     protected PollingDataSourceHandler $dataSourceHandler;
 
     public function __construct(DataSourceDTO $dataSourceDTO)
