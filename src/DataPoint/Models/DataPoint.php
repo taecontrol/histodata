@@ -3,6 +3,7 @@ namespace Taecontrol\Histodata\DataPoint\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Rennokki\QueryCache\Traits\QueryCacheable;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
 use Taecontrol\Histodata\PointValue\Enums\PointValueType;
@@ -12,6 +13,9 @@ class DataPoint extends Model
 {
     use HasFactory;
     use UsesUuid;
+    use QueryCacheable;
+
+    protected static bool $flushCacheOnUpdate = true;
 
     protected $guarded = [];
 
