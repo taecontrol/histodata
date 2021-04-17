@@ -7,5 +7,4 @@ use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceConfigurationD
 
 class VirtualDataSourceConfigurationDTO extends DataSourceConfigurationDTO
 {
-
 }
