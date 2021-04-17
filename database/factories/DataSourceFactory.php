@@ -18,6 +18,7 @@ class DataSourceFactory extends Factory
         return [
             'id' => Uuid::uuid4()->toString(),
             'name' => $this->faker->words(3, true),
+            'polling' => true,
             'configuration' => $this->virtualDataSourceConfiguration()
         ];
     }
@@ -26,7 +27,6 @@ class DataSourceFactory extends Factory
     {
         return [
             'model_type' => 'VIRTUAL',
-            'polling' => true
         ];
     }
 
@@ -40,6 +40,7 @@ class DataSourceFactory extends Factory
         return new DataSourceDTO(
             id: $data['id'],
             name: $data['name'],
+            polling: $data['polling'],
             configuration: $data['configuration']
         );
     }

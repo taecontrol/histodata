@@ -17,13 +17,10 @@ class StoreDataSource
         $dataSource = DataSource::create([
             'id' => $dataSourceDTO->id,
             'name' => $dataSourceDTO->name,
+            'polling' => $dataSourceDTO->polling,
             'configuration' => $dataSourceDTO->configuration->toArray(),
         ]);
 
-        return new DataSourceDTO(
-            id: $dataSource->id,
-            name: $dataSource->name,
-            configuration: $dataSource->configuration
-        );
+        return $dataSource->toDTO();
     }
 }

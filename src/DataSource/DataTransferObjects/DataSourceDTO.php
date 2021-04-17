@@ -11,6 +11,7 @@ class DataSourceDTO extends DataTransferObject
 {
     public string $id;
     public string $name;
+    public bool $polling;
 
     #[CastWith(DataSourceConfigurationCaster::class)]
     public DataSourceConfigurationDTO $configuration;

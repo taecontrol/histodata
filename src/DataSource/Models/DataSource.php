@@ -30,6 +30,7 @@ class DataSource extends Model
         return new DataSourceDTO(
             id: $this->id,
             name: $this->name,
+            polling: $this->polling,
             configuration: $this->configuration
         );
     }
