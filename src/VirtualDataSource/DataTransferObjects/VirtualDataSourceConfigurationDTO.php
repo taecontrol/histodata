@@ -7,4 +7,6 @@ use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceConfigurationD
 
 class VirtualDataSourceConfigurationDTO extends DataSourceConfigurationDTO
 {
+    public int $update_period;
+    public string $update_period_type;
 }

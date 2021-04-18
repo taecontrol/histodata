@@ -7,6 +7,7 @@ use Ramsey\Uuid\Uuid;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
+use Taecontrol\Histodata\Support\Enums\UpdatePeriodType;
 
 
 class DataSourceFactory extends Factory
@@ -27,6 +28,8 @@ class DataSourceFactory extends Factory
     {
         return [
             'model_type' => 'VIRTUAL',
+            'update_period' => 1,
+            'update_period_type' => 'SECONDS'
         ];
     }
 
