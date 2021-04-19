@@ -23,7 +23,7 @@ class StoreNumericPointValueTest extends TestCase
         $this->assertEquals(
             $numericPointValueDTO->toArray(),
             [
-                'value' => $pointValue->value,
+                'value' => (float)$pointValue->value,
                 'timestamp' => $pointValue->timestamp,
                 'data_point_id' => $pointValue->data_point_id,
             ]

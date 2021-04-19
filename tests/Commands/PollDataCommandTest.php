@@ -2,6 +2,7 @@
 
 namespace Taecontrol\Histodata\Tests\Commands;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Queue;
 use Taecontrol\Histodata\DataSource\Jobs\PollData;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
@@ -21,5 +22,31 @@ class PollDataCommandTest extends TestCase
         Queue::assertPushed(function (PollData $job) use ($dataSource) {
             return $job->dataSourceDTO->id === $dataSource->id;
         });
+    }
+
+    /** @test */
+    public function it_polls_all_data_sources_data(): void
+    {
+        Queue::fake();
+
+        $oneMinDataSources = DataSource::factory()->count(2)->create([
+            'configuration' => [
+                'model_type' => 'VIRTUAL',
+                'update_period' => 1,
+                'update_period_type' => 'MINUTES'
+            ]
+        ]);
+
+        $oneSecDataSource = DataSource::factory()->create();
+
+        $oneMinDataSources->each(
+            fn(DataSource $dataSource) => Cache::put("{$dataSource->id}_last_poll_at", now()->subMinutes(2))
+        );
+
+        Cache::put("{$oneSecDataSource->id}_last_poll_at", now());
+
+        $this->artisan('histodata:poll');
+
+        Queue::assertPushed(PollData::class, 2);
     }
 }

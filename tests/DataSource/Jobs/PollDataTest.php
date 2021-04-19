@@ -2,6 +2,7 @@
 
 namespace Taecontrol\Histodata\Tests\DataSource\Jobs;
 
+use Illuminate\Support\Facades\Cache;
 use Mockery\MockInterface;
 use Taecontrol\Histodata\DataSource\Jobs\PollData;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
@@ -20,5 +21,11 @@ class PollDataTest extends TestCase
         $dataSource = DataSource::factory()->create();
 
         PollData::dispatch($dataSource->toDTO());
+
+        $difference = Cache::get("{$dataSource->id}_last_poll_at")->diff(now());
+
+        $this->assertEquals(0, $difference->s);
+        $this->assertEquals(0, $difference->m);
+        $this->assertEquals(0, $difference->h);
     }
 }

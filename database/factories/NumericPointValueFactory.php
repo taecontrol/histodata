@@ -16,7 +16,7 @@ class NumericPointValueFactory extends Factory
     public function definition(): array
     {
         return [
-            'value' => $this->faker->randomFloat(),
+            'value' => $this->faker->randomFloat(nbMaxDecimals: 2),
             'timestamp' => now(),
             'data_point_id' => DataPoint::factory()->create()->id
         ];

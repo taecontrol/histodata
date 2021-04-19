@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
 use Taecontrol\Histodata\DataSource\Support\PollingDataSourceHandler;
 use Taecontrol\Histodata\Facades\Histodata;
@@ -29,6 +30,7 @@ class PollData implements ShouldQueue
 
     public function handle(): void
     {
+        Cache::put("{$this->dataSourceDTO->id}_last_poll_at", now());
         $modelType = $this->dataSourceDTO->configuration->model_type;
 
         if (Histodata::dataSourceTypesContain($modelType)) {
