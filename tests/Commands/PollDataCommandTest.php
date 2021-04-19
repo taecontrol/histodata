@@ -33,14 +33,14 @@ class PollDataCommandTest extends TestCase
             'configuration' => [
                 'model_type' => 'VIRTUAL',
                 'update_period' => 1,
-                'update_period_type' => 'MINUTES'
-            ]
+                'update_period_type' => 'MINUTES',
+            ],
         ]);
 
         $oneSecDataSource = DataSource::factory()->create();
 
         $oneMinDataSources->each(
-            fn(DataSource $dataSource) => Cache::put("{$dataSource->id}_last_poll_at", now()->subMinutes(2))
+            fn (DataSource $dataSource) => Cache::put("{$dataSource->id}_last_poll_at", now()->subMinutes(2))
         );
 
         Cache::put("{$oneSecDataSource->id}_last_poll_at", now());
