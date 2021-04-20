@@ -54,7 +54,7 @@ class VirtualDataSourceHandlerTest extends TestCase
             ->create([
                 'data_source_id' => $dataSource->id,
                 'data_type' => PointValueType::NUMERIC(),
-                'enabled' => false
+                'enabled' => false,
             ]);
 
         $dataPointHandler = new VirtualDataSourceHandler();

@@ -59,8 +59,8 @@ class PollDataCommandTest extends TestCase
             'configuration' => [
                 'model_type' => 'VIRTUAL',
                 'update_period' => 1,
-                'update_period_type' => 'MINUTES'
-            ]
+                'update_period_type' => 'MINUTES',
+            ],
         ]);
 
         $this->artisan('histodata:poll');
@@ -76,16 +76,16 @@ class PollDataCommandTest extends TestCase
         $config = [
             'model_type' => 'VIRTUAL',
             'update_period' => 1,
-            'update_period_type' => 'MINUTES'
+            'update_period_type' => 'MINUTES',
         ];
 
         DataSource::factory()->count(2)->create([
-            'configuration' => $config
+            'configuration' => $config,
         ]);
 
         DataSource::factory()->count(2)->create([
             'enabled' => false,
-            'configuration' => $config
+            'configuration' => $config,
         ]);
 
         $this->artisan('histodata:poll');
@@ -101,20 +101,20 @@ class PollDataCommandTest extends TestCase
         $config = [
             'model_type' => 'VIRTUAL',
             'update_period' => 1,
-            'update_period_type' => 'MINUTES'
+            'update_period_type' => 'MINUTES',
         ];
 
         $pollingDataSources = DataSource::factory()->count(2)->create([
-            'configuration' => $config
+            'configuration' => $config,
         ]);
 
         DataSource::factory()->count(2)->create([
             'polling' => false,
-            'configuration' => $config
+            'configuration' => $config,
         ]);
 
         $pollingDataSources->each(
-            fn(DataSource $dataSource) => Cache::put("{$dataSource->id}_last_poll_at", now()->subMinutes(2))
+            fn (DataSource $dataSource) => Cache::put("{$dataSource->id}_last_poll_at", now()->subMinutes(2))
         );
 
         $this->artisan('histodata:poll');
