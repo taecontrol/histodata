@@ -12,6 +12,7 @@ class CreateHistodataTables extends Migration
         Schema::create('data_sources', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->boolean('enabled');
             $table->boolean('polling');
             $table->json('configuration');
 

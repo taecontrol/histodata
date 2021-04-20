@@ -25,7 +25,7 @@ class PollDataCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_polls_all_data_sources_data(): void
+    public function it_polls_data_sources_data(): void
     {
         Queue::fake();
 
@@ -44,6 +44,78 @@ class PollDataCommandTest extends TestCase
         );
 
         Cache::put("{$oneSecDataSource->id}_last_poll_at", now());
+
+        $this->artisan('histodata:poll');
+
+        Queue::assertPushed(PollData::class, 2);
+    }
+
+    /** @test */
+    public function it_polls_polling_data_sources_for_the_first_time_data(): void
+    {
+        Queue::fake();
+
+        DataSource::factory()->count(2)->create([
+            'configuration' => [
+                'model_type' => 'VIRTUAL',
+                'update_period' => 1,
+                'update_period_type' => 'MINUTES'
+            ]
+        ]);
+
+        $this->artisan('histodata:poll');
+
+        Queue::assertPushed(PollData::class, 2);
+    }
+
+    /** @test */
+    public function it_polls_only_enabled_data_sources(): void
+    {
+        Queue::fake();
+
+        $config = [
+            'model_type' => 'VIRTUAL',
+            'update_period' => 1,
+            'update_period_type' => 'MINUTES'
+        ];
+
+        DataSource::factory()->count(2)->create([
+            'configuration' => $config
+        ]);
+
+        DataSource::factory()->count(2)->create([
+            'enabled' => false,
+            'configuration' => $config
+        ]);
+
+        $this->artisan('histodata:poll');
+
+        Queue::assertPushed(PollData::class, 2);
+    }
+
+    /** @test */
+    public function it_polls_only_polling_data_sources_data(): void
+    {
+        Queue::fake();
+
+        $config = [
+            'model_type' => 'VIRTUAL',
+            'update_period' => 1,
+            'update_period_type' => 'MINUTES'
+        ];
+
+        $pollingDataSources = DataSource::factory()->count(2)->create([
+            'configuration' => $config
+        ]);
+
+        DataSource::factory()->count(2)->create([
+            'polling' => false,
+            'configuration' => $config
+        ]);
+
+        $pollingDataSources->each(
+            fn(DataSource $dataSource) => Cache::put("{$dataSource->id}_last_poll_at", now()->subMinutes(2))
+        );
 
         $this->artisan('histodata:poll');
 

@@ -23,6 +23,7 @@ class PollDataCommand extends Command
         } else {
             $dataSources = DataSource::query()
                 ->where('polling', true)
+                ->where('enabled', true)
                 ->get();
 
             $dataSources->each(function (DataSource $dataSource) {
@@ -33,9 +34,10 @@ class PollDataCommand extends Command
 
     protected function pollDataSourceData(string $dataSourceId): void
     {
-        $dataSourceDTO = DataSource::query()
-            ->findOrFail($dataSourceId)
-            ->toDTO();
+        $dataSource = DataSource::query()
+            ->findOrFail($dataSourceId);
+
+        $dataSourceDTO = $dataSource->toDTO();
 
         PollData::dispatch($dataSourceDTO);
     }
@@ -48,9 +50,11 @@ class PollDataCommand extends Command
         if ($lastPoll = Cache::get("{$dataSource->id}_last_poll_at")) {
             $secondsSinceLastPoll = CarbonInterval::make($lastPoll->diff(now()))->totalSeconds;
 
-            if ($secondsSinceLastPoll > $this->getDataSourceUpdatePeriodInSeconds($dataSource)) {
+            if ($secondsSinceLastPoll >= $this->getDataSourceUpdatePeriodInSeconds($dataSource)) {
                 PollData::dispatch($dataSource->toDTO());
             }
+        } else {
+            PollData::dispatch($dataSource->toDTO());
         }
     }
 

@@ -23,6 +23,7 @@ class StoreDataSourceTest extends TestCase
             [
                 'id' => $newDataSource->id,
                 'name' => $newDataSource->name,
+                'enabled' => $newDataSource->enabled,
                 'polling' => $newDataSource->polling,
                 'configuration' => [
                     'update_period' => $newDataSource->configuration['update_period'],

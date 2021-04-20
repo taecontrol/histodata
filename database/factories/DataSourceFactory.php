@@ -7,7 +7,6 @@ use Ramsey\Uuid\Uuid;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
-use Taecontrol\Histodata\Support\Enums\UpdatePeriodType;
 
 
 class DataSourceFactory extends Factory
@@ -19,6 +18,7 @@ class DataSourceFactory extends Factory
         return [
             'id' => Uuid::uuid4()->toString(),
             'name' => $this->faker->words(3, true),
+            'enabled' => true,
             'polling' => true,
             'configuration' => $this->virtualDataSourceConfiguration()
         ];
@@ -43,6 +43,7 @@ class DataSourceFactory extends Factory
         return new DataSourceDTO(
             id: $data['id'],
             name: $data['name'],
+            enabled: $data['enabled'],
             polling: $data['polling'],
             configuration: $data['configuration']
         );
