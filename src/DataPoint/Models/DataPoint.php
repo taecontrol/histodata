@@ -3,6 +3,7 @@ namespace Taecontrol\Histodata\DataPoint\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Rennokki\QueryCache\Traits\QueryCacheable;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
@@ -23,6 +24,11 @@ class DataPoint extends Model
         'data_type' => PointValueType::class,
         'configuration' => 'array',
     ];
+
+    public function parent(): MorphTo
+    {
+        return $this->morphTo();
+    }
 
     /**
      * @throws UnknownProperties

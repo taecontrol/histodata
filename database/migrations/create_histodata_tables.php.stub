@@ -23,9 +23,12 @@ class CreateHistodataTables extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->boolean('enabled');
-            $table->uuid('data_source_id');
             $table->string('data_type');
             $table->json('configuration');
+
+            $table->uuid('data_source_id');
+            $table->uuid('parent_id')->nullable();
+            $table->string('parent_type')->nullable();
 
             $table->timestamps();
         });
