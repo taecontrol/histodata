@@ -20,6 +20,7 @@ class DataPointFactory extends Factory
         return [
             'id' => Uuid::uuid4()->toString(),
             'name' => $this->faker->words(3, true),
+            'enabled' => true,
             'data_source_id' => DataSource::factory()->create()->id,
             'data_type' => $this->faker->randomElement([
                 PointValueType::ALPHANUMERIC(),
@@ -51,6 +52,7 @@ class DataPointFactory extends Factory
         return new DataPointDTO(
             id: $data['id'],
             name: $data['name'],
+            enabled: $data['enabled'],
             data_source_id: $data['data_source_id'],
             data_type: $data['data_type'],
             configuration: $data['configuration']

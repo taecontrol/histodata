@@ -85,6 +85,7 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
     {
         return DataPoint::query()
             ->where('data_source_id', $dataSourceDTO->id)
+            ->where('enabled', true)
             ->get()
             ->map(fn (DataPoint $point) => $point->toDTO());
     }

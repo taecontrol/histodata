@@ -12,6 +12,7 @@ class DataPointDTO extends DataTransferObject
 {
     public string $id;
     public string $name;
+    public bool $enabled;
     public string $data_source_id;
     public PointValueType $data_type;
 

@@ -32,6 +32,7 @@ class DataPoint extends Model
         return new DataPointDTO(
             id: $this->id,
             name: $this->name,
+            enabled: $this->enabled,
             data_source_id: $this->data_source_id,
             data_type: $this->data_type,
             configuration: $this->configuration

@@ -23,6 +23,7 @@ class StoreDataPointTest extends TestCase
             [
                 'id' => $newDataPoint->id,
                 'name' => $newDataPoint->name,
+                'enabled' => $newDataPoint->enabled,
                 'data_source_id' => $newDataPoint->data_source_id,
                 'data_type' => $newDataPoint->data_type,
                 'configuration' => [
