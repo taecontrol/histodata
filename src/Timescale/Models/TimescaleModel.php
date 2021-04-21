@@ -89,6 +89,6 @@ class TimescaleModel extends Model
 
         $allowedColumns = Schema::getColumnListing($this->table);
 
-        return in_array($column, $allowedColumns) ? $column : $fallbackColumn;
+        return in_array($column, $allowedColumns, true) ? $column : $fallbackColumn;
     }
 }

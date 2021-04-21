@@ -20,7 +20,7 @@ class PollDataCommandTest extends TestCase
         $this->artisan("histodata:poll {$dataSource->id}");
 
         Queue::assertPushed(function (PollData $job) use ($dataSource) {
-            return $job->dataSourceDTO->id === $dataSource->id;
+            return $job->dataSource->id === $dataSource->id;
         });
     }
 
@@ -40,10 +40,10 @@ class PollDataCommandTest extends TestCase
         $oneSecDataSource = DataSource::factory()->create();
 
         $oneMinDataSources->each(
-            fn (DataSource $dataSource) => Cache::put("{$dataSource->id}_last_poll_at", now()->subMinutes(2))
+            fn(DataSource $dataSource) => Cache::put("{$dataSource->id}_next_poll_at", now()->subSecond())
         );
 
-        Cache::put("{$oneSecDataSource->id}_last_poll_at", now());
+        Cache::put("{$oneSecDataSource->id}_next_poll_at", now()->addSecond());
 
         $this->artisan('histodata:poll');
 

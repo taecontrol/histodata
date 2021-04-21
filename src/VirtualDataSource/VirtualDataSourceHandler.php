@@ -3,13 +3,15 @@
 
 namespace Taecontrol\Histodata\VirtualDataSource;
 
+use Carbon\CarbonInterval;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
-use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
+use Taecontrol\Histodata\DataSource\Models\DataSource;
 use Taecontrol\Histodata\DataSource\Support\PollingDataSourceHandler;
 use Taecontrol\Histodata\PointValue\DataTransferObjects\NumericPointValueDTO;
 use Taecontrol\Histodata\PointValue\Enums\PointValueType;
@@ -28,45 +30,35 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
         // Implements
     }
 
-    public function executePoll(DataSourceDTO $dataSourceDTO): void
+    public function executePoll(DataSource $dataSource): void
     {
-        $dataPointDTOs = $this->getDataPointDTOs($dataSourceDTO);
+        $dataPoints = $this->getDataPoints($dataSource);
         $timestamp = now();
+        $lastPoll = Cache::get("{$dataSource->id}_last_poll_at");
 
-        $dataPointDTOs->each(function (DataPointDTO $dataPointDTO) use ($timestamp) {
-            if (PointValueType::NUMERIC()->equals($dataPointDTO->data_type)) {
-                $this->addNumericPointValue($dataPointDTO, $timestamp);
+        $dataPoints->each(function (DataPoint $dataPoint) use ($timestamp, $lastPoll) {
+            if (PointValueType::NUMERIC()->equals($dataPoint->data_type)) {
+                $this->addNumericPointValue($dataPoint, $timestamp, $lastPoll);
             }
         });
 
         NumericPointValue::insert($this->numericPointValues);
     }
 
-    public function getType(): string
-    {
-        return 'VIRTUAL';
-    }
-
-    public function getDataSourceConfigurationDTOClass(): string
-    {
-        return VirtualDataSourceConfigurationDTO::class;
-    }
-
-    public function getDataPointConfigurationDTOClass(): string
-    {
-        return VirtualDataPointConfigurationDTO::class;
-    }
-
     /**
      * @throws UnknownProperties
      */
-    protected function addNumericPointValue(DataPointDTO $dataPointDTO, Carbon $timestamp): void
+    protected function addNumericPointValue(DataPoint $dataPoint, Carbon $timestamp, Carbon|null $lastPoll): void
     {
         $value = null;
 
-        $configurationDTO = $this->getDataPointConfiguration($dataPointDTO);
+        $configurationDTO = $this->getDataPointConfiguration($dataPoint->toDTO());
+        $secondsSinceCreation = CarbonInterval::make($dataPoint->created_at->diff($timestamp))->totalSeconds;
+        $secondsSinceLastPoll = $lastPoll ? CarbonInterval::make($lastPoll->diff($timestamp))->totalSeconds : null;
 
-        if ($configurationDTO->change_type === 'random') {
+        if ($secondsSinceLastPoll === null || $secondsSinceCreation < $secondsSinceLastPoll) {
+            $value = $configurationDTO->initial_value;
+        } elseif ($configurationDTO->change_type === 'random') {
             $value = $this->randomFloat($configurationDTO->min, $configurationDTO->max);
         }
 
@@ -74,20 +66,19 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
             $numericPointValue = new NumericPointValueDTO(
                 value: $value,
                 timestamp: $timestamp,
-                data_point_id: $dataPointDTO->id
+                data_point_id: $dataPoint->id
             );
 
             $this->numericPointValues[] = $numericPointValue->toArray();
         }
     }
 
-    protected function getDataPointDTOs(DataSourceDTO $dataSourceDTO): Collection
+    protected function getDataPoints(DataSource $dataSource): Collection|array
     {
         return DataPoint::query()
-            ->where('data_source_id', $dataSourceDTO->id)
+            ->where('data_source_id', $dataSource->id)
             ->where('enabled', true)
-            ->get()
-            ->map(fn (DataPoint $point) => $point->toDTO());
+            ->get();
     }
 
     protected function getDataPointConfiguration(DataPointDTO $dataPointDTO): VirtualDataPointConfigurationDTO
@@ -106,5 +97,20 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
         } catch (Exception) {
             return 0;
         }
+    }
+
+    public function getType(): string
+    {
+        return 'VIRTUAL';
+    }
+
+    public function getDataSourceConfigurationDTOClass(): string
+    {
+        return VirtualDataSourceConfigurationDTO::class;
+    }
+
+    public function getDataPointConfigurationDTOClass(): string
+    {
+        return VirtualDataPointConfigurationDTO::class;
     }
 }

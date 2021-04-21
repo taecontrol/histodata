@@ -2,10 +2,8 @@
 
 namespace Taecontrol\Histodata\Commands;
 
-use Carbon\CarbonInterval;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataSource\Jobs\PollData;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
 
@@ -37,31 +35,17 @@ class PollDataCommand extends Command
         $dataSource = DataSource::query()
             ->findOrFail($dataSourceId);
 
-        $dataSourceDTO = $dataSource->toDTO();
-
-        PollData::dispatch($dataSourceDTO);
+        PollData::dispatch($dataSource);
     }
 
-    /**
-     * @throws UnknownProperties
-     */
     protected function pollDataSourcesData(DataSource $dataSource): void
     {
-        if ($lastPoll = Cache::get("{$dataSource->id}_last_poll_at")) {
-            $secondsSinceLastPoll = CarbonInterval::make($lastPoll->diff(now()))->totalSeconds;
-
-            if ($secondsSinceLastPoll >= $this->getDataSourceUpdatePeriodInSeconds($dataSource)) {
-                PollData::dispatch($dataSource->toDTO());
+        if ($nextPoll = Cache::get("{$dataSource->id}_next_poll_at")) {
+            if (now()->gte($nextPoll)) {
+                PollData::dispatch($dataSource);
             }
         } else {
-            PollData::dispatch($dataSource->toDTO());
+            PollData::dispatch($dataSource);
         }
-    }
-
-    protected function getDataSourceUpdatePeriodInSeconds(DataSource $dataSource): float
-    {
-        return CarbonInterval::fromString(
-            "{$dataSource->configuration['update_period']} {$dataSource->configuration['update_period_type']}"
-        )->totalSeconds;
     }
 }

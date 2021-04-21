@@ -2,6 +2,7 @@
 
 namespace Taecontrol\Histodata\Tests\VirtualDataSource;
 
+use Illuminate\Support\Facades\Cache;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
 use Taecontrol\Histodata\PointValue\Enums\PointValueType;
@@ -25,7 +26,7 @@ class VirtualDataSourceHandlerTest extends TestCase
 
         $dataPointHandler = new VirtualDataSourceHandler();
 
-        $dataPointHandler->executePoll($dataSource->toDTO());
+        $dataPointHandler->executePoll($dataSource);
 
         $pointValues = NumericPointValue::all();
 
@@ -59,7 +60,7 @@ class VirtualDataSourceHandlerTest extends TestCase
 
         $dataPointHandler = new VirtualDataSourceHandler();
 
-        $dataPointHandler->executePoll($dataSource->toDTO());
+        $dataPointHandler->executePoll($dataSource);
 
         $pointValues = NumericPointValue::all();
 
@@ -69,5 +70,39 @@ class VirtualDataSourceHandlerTest extends TestCase
         $this->assertContains($pointValues[0]->data_point_id, $dataPointIds);
         $this->assertContains($pointValues[1]->data_point_id, $dataPointIds);
         $this->assertContains($pointValues[2]->data_point_id, $dataPointIds);
+    }
+
+    /** @test */
+    public function it_stores_initial_value_only_one_time(): void
+    {
+        $dataSource = DataSource::factory()->create();
+
+        $dataPoint = DataPoint::factory()
+            ->create([
+                'data_source_id' => $dataSource->id,
+                'data_type' => PointValueType::NUMERIC(),
+                'configuration' => [
+                    'model_type' => 'VIRTUAL',
+                    'change_type' => 'random',
+                    'initial_value' => 50.5,
+                    'min' => 0,
+                    'max' => 100,
+                    'max_change' => 0.5
+                ]
+            ]);
+
+        $dataPointHandler = new VirtualDataSourceHandler();
+
+        $dataPointHandler->executePoll($dataSource);
+        $pointValue = $dataPoint->lastPointValue();
+        $this->assertEquals(50.5, $pointValue->value);
+
+        Cache::put("{$dataSource->id}_last_poll_at", now());
+
+        $this->travel(1)->seconds();
+
+        $dataPointHandler->executePoll($dataSource);
+        $pointValue = $dataPoint->lastPointValue();
+        $this->assertNotEquals(50.5, $pointValue->value);
     }
 }

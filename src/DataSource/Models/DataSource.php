@@ -1,6 +1,7 @@
 <?php
 namespace Taecontrol\Histodata\DataSource\Models;
 
+use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Rennokki\QueryCache\Traits\QueryCacheable;
@@ -34,5 +35,12 @@ class DataSource extends Model
             polling: $this->polling,
             configuration: $this->configuration
         );
+    }
+
+    public function getUpdatePeriodInSecondsAttribute(): int
+    {
+        return (int)CarbonInterval::fromString(
+            "{$this->configuration['update_period']} {$this->configuration['update_period_type']}"
+        )->totalSeconds;
     }
 }

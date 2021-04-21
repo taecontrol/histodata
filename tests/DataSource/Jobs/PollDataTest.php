@@ -20,12 +20,9 @@ class PollDataTest extends TestCase
 
         $dataSource = DataSource::factory()->create();
 
-        PollData::dispatch($dataSource->toDTO());
+        PollData::dispatch($dataSource);
 
-        $difference = Cache::get("{$dataSource->id}_last_poll_at")->diff(now());
-
-        $this->assertEquals(0, $difference->s);
-        $this->assertEquals(0, $difference->m);
-        $this->assertEquals(0, $difference->h);
+        $this->assertTrue(Cache::get("{$dataSource->id}_next_poll_at")->gt(now()));
+        $this->assertTrue((bool)Cache::get("{$dataSource->id}_last_poll_at"));
     }
 }

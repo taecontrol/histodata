@@ -3,11 +3,11 @@
 
 namespace Taecontrol\Histodata\DataSource\Support;
 
-use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
+use Taecontrol\Histodata\DataSource\Models\DataSource;
 
 abstract class PollingDataSourceHandler extends DataSourceHandler
 {
     abstract public function initialize(): void;
 
-    abstract public function executePoll(DataSourceDTO $dataSourceDTO): void;
+    abstract public function executePoll(DataSource $dataSource): void;
 }
