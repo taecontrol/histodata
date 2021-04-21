@@ -40,7 +40,7 @@ class PollDataCommandTest extends TestCase
         $oneSecDataSource = DataSource::factory()->create();
 
         $oneMinDataSources->each(
-            fn(DataSource $dataSource) => Cache::put("{$dataSource->id}_next_poll_at", now()->subSecond())
+            fn (DataSource $dataSource) => Cache::put("{$dataSource->id}_next_poll_at", now()->subSecond())
         );
 
         Cache::put("{$oneSecDataSource->id}_next_poll_at", now()->addSecond());

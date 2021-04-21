@@ -87,8 +87,8 @@ class VirtualDataSourceHandlerTest extends TestCase
                     'initial_value' => 50.5,
                     'min' => 0,
                     'max' => 100,
-                    'max_change' => 0.5
-                ]
+                    'max_change' => 0.5,
+                ],
             ]);
 
         $dataPointHandler = new VirtualDataSourceHandler();

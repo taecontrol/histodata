@@ -48,7 +48,7 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
     /**
      * @throws UnknownProperties
      */
-    protected function addNumericPointValue(DataPoint $dataPoint, Carbon $timestamp, Carbon|null $lastPoll): void
+    protected function addNumericPointValue(DataPoint $dataPoint, Carbon $timestamp, Carbon | null $lastPoll): void
     {
         $value = null;
 
@@ -73,7 +73,7 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
         }
     }
 
-    protected function getDataPoints(DataSource $dataSource): Collection|array
+    protected function getDataPoints(DataSource $dataSource): Collection | array
     {
         return DataPoint::query()
             ->where('data_source_id', $dataSource->id)
