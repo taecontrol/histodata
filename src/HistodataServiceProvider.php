@@ -5,9 +5,7 @@ namespace Taecontrol\Histodata;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Taecontrol\Histodata\Commands\PollDataCommand;
-use Taecontrol\Histodata\Facades\Histodata as HistodataFacade;
 use Taecontrol\Histodata\Timescale\Timescale;
-use Taecontrol\Histodata\VirtualDataSource\VirtualDataSourceHandler;
 
 class HistodataServiceProvider extends PackageServiceProvider
 {
@@ -42,10 +40,5 @@ class HistodataServiceProvider extends PackageServiceProvider
         $this->app->singleton(Histodata::class, function () {
             return new Histodata();
         });
-    }
-
-    public function packageBooted(): void
-    {
-        HistodataFacade::registerDataSource(new VirtualDataSourceHandler());
     }
 }

@@ -53,7 +53,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Taecontrol\\Histodata\\HistodataServiceProvider"
+                "Taecontrol\\Histodata\\HistodataServiceProvider",
+                "Taecontrol\\Histodata\\VirtualDataSource\\VirtualDataSourceServiceProvider"
             ],
             "aliases": {
                 "Histodata": "Histodata"
