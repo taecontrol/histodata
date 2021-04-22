@@ -7,7 +7,5 @@ use Taecontrol\Histodata\DataSource\Models\DataSource;
 
 abstract class PollingDataSourceHandler extends DataSourceHandler
 {
-    abstract public function initialize(): void;
-
     abstract public function executePoll(DataSource $dataSource): void;
 }

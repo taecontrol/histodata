@@ -43,6 +43,20 @@ class DataPointFactory extends Factory
         ];
     }
 
+    public function alphanumeric(?string $initialValue = null): DataPointFactory
+    {
+        return $this->state(function () use ($initialValue) {
+            return [
+                'data_type' => PointValueType::ALPHANUMERIC(),
+                'configuration' => [
+                    'model_type' => 'VIRTUAL',
+                    'change_type' => 'NO_CHANGE',
+                    'initial_value' => $initialValue ?: $this->faker->words(2, true),
+                ]
+            ];
+        });
+    }
+
     /**
      * @throws UnknownProperties
      */

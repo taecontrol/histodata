@@ -9,6 +9,8 @@ use Carbon\CarbonInterval;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
+use Taecontrol\Histodata\PointValue\DataTransferObjects\AlphanumericPointValueDTO;
+use Taecontrol\Histodata\PointValue\DataTransferObjects\BinaryPointValueDTO;
 use Taecontrol\Histodata\PointValue\DataTransferObjects\NumericPointValueDTO;
 use Taecontrol\Histodata\VirtualDataSource\DataTransferObjects\VirtualDataPointConfigurationDTO;
 
@@ -18,7 +20,7 @@ abstract class PointValueHandler
         DataSource $dataSource,
         DataPoint $dataPoint,
         Carbon $timestamp
-    ): NumericPointValueDTO|null;
+    ): mixed;
 
     protected function getDataPointConfiguration(DataPoint $dataPoint): VirtualDataPointConfigurationDTO
     {
@@ -44,6 +46,36 @@ abstract class PointValueHandler
     {
         if ($value) {
             return new NumericPointValueDTO(
+                value: $value,
+                timestamp: $timestamp,
+                data_point_id: $dataPoint->id
+            );
+        }
+        return null;
+    }
+
+    /**
+     * @throws UnknownProperties
+     */
+    protected function alphanumericPointValue(?string $value, DataPoint $dataPoint, Carbon $timestamp): AlphanumericPointValueDTO|null
+    {
+        if ($value) {
+            return new AlphanumericPointValueDTO(
+                value: $value,
+                timestamp: $timestamp,
+                data_point_id: $dataPoint->id
+            );
+        }
+        return null;
+    }
+
+    /**
+     * @throws UnknownProperties
+     */
+    protected function binaryPointValue(?bool $value, DataPoint $dataPoint, Carbon $timestamp): BinaryPointValueDTO|null
+    {
+        if ($value) {
+            return new BinaryPointValueDTO(
                 value: $value,
                 timestamp: $timestamp,
                 data_point_id: $dataPoint->id

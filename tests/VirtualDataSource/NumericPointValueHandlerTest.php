@@ -10,7 +10,7 @@ use Taecontrol\Histodata\PointValue\Models\NumericPointValue;
 use Taecontrol\Histodata\Tests\TestCase;
 use Taecontrol\Histodata\VirtualDataSource\VirtualDataSourceHandler;
 
-class VirtualDataSourceHandlerTest extends TestCase
+class NumericPointValueHandlerTest extends TestCase
 {
     /** @test */
     public function it_stores_numeric_values_from_a_poll(): void
