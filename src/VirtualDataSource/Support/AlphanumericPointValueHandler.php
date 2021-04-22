@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\VirtualDataSource\Support;
 
-
 use Carbon\Carbon;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
@@ -15,7 +14,7 @@ class AlphanumericPointValueHandler extends PointValueHandler
     /**
      * @throws UnknownProperties
      */
-    public function handle(DataSource $dataSource, DataPoint $dataPoint, Carbon $timestamp): AlphanumericPointValueDTO|null
+    public function handle(DataSource $dataSource, DataPoint $dataPoint, Carbon $timestamp): AlphanumericPointValueDTO | null
     {
         $value = null;
 

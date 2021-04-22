@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\VirtualDataSource\Support;
 
-
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
@@ -27,12 +26,12 @@ abstract class PointValueHandler
         return $dataPoint->toDTO()->configuration;
     }
 
-    protected function getSecondsSinceCreation(DataPoint $dataPoint, Carbon $timestamp): float|null
+    protected function getSecondsSinceCreation(DataPoint $dataPoint, Carbon $timestamp): float | null
     {
         return CarbonInterval::make($dataPoint->created_at->diff($timestamp))->totalSeconds;
     }
 
-    protected function getSecondsSinceLastPoll(DataSource $dataSource, Carbon $timestamp): float|null
+    protected function getSecondsSinceLastPoll(DataSource $dataSource, Carbon $timestamp): float | null
     {
         $lastPoll = $dataSource->getLastPoll();
 
@@ -42,7 +41,7 @@ abstract class PointValueHandler
     /**
      * @throws UnknownProperties
      */
-    protected function numericPointValue(?float $value, DataPoint $dataPoint, Carbon $timestamp): NumericPointValueDTO|null
+    protected function numericPointValue(?float $value, DataPoint $dataPoint, Carbon $timestamp): NumericPointValueDTO | null
     {
         if ($value) {
             return new NumericPointValueDTO(
@@ -51,13 +50,14 @@ abstract class PointValueHandler
                 data_point_id: $dataPoint->id
             );
         }
+
         return null;
     }
 
     /**
      * @throws UnknownProperties
      */
-    protected function alphanumericPointValue(?string $value, DataPoint $dataPoint, Carbon $timestamp): AlphanumericPointValueDTO|null
+    protected function alphanumericPointValue(?string $value, DataPoint $dataPoint, Carbon $timestamp): AlphanumericPointValueDTO | null
     {
         if ($value) {
             return new AlphanumericPointValueDTO(
@@ -66,13 +66,14 @@ abstract class PointValueHandler
                 data_point_id: $dataPoint->id
             );
         }
+
         return null;
     }
 
     /**
      * @throws UnknownProperties
      */
-    protected function binaryPointValue(?bool $value, DataPoint $dataPoint, Carbon $timestamp): BinaryPointValueDTO|null
+    protected function binaryPointValue(?bool $value, DataPoint $dataPoint, Carbon $timestamp): BinaryPointValueDTO | null
     {
         if ($value) {
             return new BinaryPointValueDTO(
@@ -81,6 +82,7 @@ abstract class PointValueHandler
                 data_point_id: $dataPoint->id
             );
         }
+
         return null;
     }
 }

@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\VirtualDataSource;
 
-
 use Illuminate\Support\ServiceProvider;
 use Taecontrol\Histodata\Facades\Histodata;
 

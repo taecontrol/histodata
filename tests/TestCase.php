@@ -23,7 +23,7 @@ class TestCase extends Orchestra
     {
         return [
             HistodataServiceProvider::class,
-            VirtualDataSourceServiceProvider::class
+            VirtualDataSourceServiceProvider::class,
         ];
     }
 

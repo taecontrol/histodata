@@ -44,20 +44,20 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
 
     protected function insertValues(): void
     {
-        if (!empty($this->numericPointValues)) {
+        if (! empty($this->numericPointValues)) {
             NumericPointValue::insert($this->numericPointValues);
         }
 
-        if (!empty($this->alphanumericPointValues)) {
+        if (! empty($this->alphanumericPointValues)) {
             AlphanumericPointValue::insert($this->alphanumericPointValues);
         }
 
-        if (!empty($this->binaryPointValues)) {
+        if (! empty($this->binaryPointValues)) {
             BinaryPointValue::insert($this->binaryPointValues);
         }
     }
 
-    protected function getDataPoints(DataSource $dataSource): Collection|array
+    protected function getDataPoints(DataSource $dataSource): Collection | array
     {
         return DataPoint::query()
             ->where('data_source_id', $dataSource->id)
