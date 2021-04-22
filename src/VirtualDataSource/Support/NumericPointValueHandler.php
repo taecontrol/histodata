@@ -25,7 +25,7 @@ class NumericPointValueHandler extends PointValueHandler
 
         if ($secondsSinceLastPoll === null || $secondsSinceCreation < $secondsSinceLastPoll) {
             $value = (float)$configurationDTO->initial_value;
-        } elseif ($configurationDTO->change_type === 'random') {
+        } elseif ($configurationDTO->change_type === 'RANDOM') {
             $value = $this->randomFloat($configurationDTO->min, $configurationDTO->max);
         }
 

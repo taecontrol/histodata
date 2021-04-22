@@ -35,7 +35,7 @@ class DataPointFactory extends Factory
     {
         return [
             'model_type' => 'VIRTUAL',
-            'change_type' => 'random',
+            'change_type' => 'RANDOM',
             'initial_value' => 50,
             'min' => 0,
             'max' => 100,
