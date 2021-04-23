@@ -38,51 +38,53 @@ abstract class PointValueHandler
         return $lastPoll ? CarbonInterval::make($lastPoll->diff($timestamp))->totalSeconds : null;
     }
 
-    /**
-     * @throws UnknownProperties
-     */
     protected function numericPointValue(?float $value, DataPoint $dataPoint, Carbon $timestamp): NumericPointValueDTO | null
     {
-        if ($value) {
-            return new NumericPointValueDTO(
-                value: $value,
-                timestamp: $timestamp,
-                data_point_id: $dataPoint->id
-            );
+        try {
+            if ($value) {
+                return new NumericPointValueDTO(
+                    value: $value,
+                    timestamp: $timestamp,
+                    data_point_id: $dataPoint->id
+                );
+            }
+            return null;
+        } catch (UnknownProperties $_e) {
+            return null;
         }
-
-        return null;
     }
 
-    /**
-     * @throws UnknownProperties
-     */
     protected function alphanumericPointValue(?string $value, DataPoint $dataPoint, Carbon $timestamp): AlphanumericPointValueDTO | null
     {
-        if ($value) {
-            return new AlphanumericPointValueDTO(
-                value: $value,
-                timestamp: $timestamp,
-                data_point_id: $dataPoint->id
-            );
-        }
+        try {
+            if ($value) {
+                return new AlphanumericPointValueDTO(
+                    value: $value,
+                    timestamp: $timestamp,
+                    data_point_id: $dataPoint->id
+                );
+            }
 
-        return null;
+            return null;
+        } catch (UnknownProperties $_e) {
+            return null;
+        }
     }
 
-    /**
-     * @throws UnknownProperties
-     */
     protected function binaryPointValue(?bool $value, DataPoint $dataPoint, Carbon $timestamp): BinaryPointValueDTO | null
     {
-        if ($value) {
-            return new BinaryPointValueDTO(
-                value: $value,
-                timestamp: $timestamp,
-                data_point_id: $dataPoint->id
-            );
-        }
+        try {
+            if ($value !== null) {
+                return new BinaryPointValueDTO(
+                    value: $value,
+                    timestamp: $timestamp,
+                    data_point_id: $dataPoint->id
+                );
+            }
 
-        return null;
+            return null;
+        } catch (UnknownProperties $_e) {
+            return null;
+        }
     }
 }

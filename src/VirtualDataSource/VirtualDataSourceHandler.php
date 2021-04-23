@@ -5,7 +5,6 @@ namespace Taecontrol\Histodata\VirtualDataSource;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
 use Taecontrol\Histodata\DataSource\Models\DataSource;
 use Taecontrol\Histodata\DataSource\Support\PollingDataSourceHandler;
@@ -16,6 +15,7 @@ use Taecontrol\Histodata\PointValue\Models\NumericPointValue;
 use Taecontrol\Histodata\VirtualDataSource\DataTransferObjects\VirtualDataPointConfigurationDTO;
 use Taecontrol\Histodata\VirtualDataSource\DataTransferObjects\VirtualDataSourceConfigurationDTO;
 use Taecontrol\Histodata\VirtualDataSource\Support\AlphanumericPointValueHandler;
+use Taecontrol\Histodata\VirtualDataSource\Support\BinaryPointValueHandler;
 use Taecontrol\Histodata\VirtualDataSource\Support\NumericPointValueHandler;
 
 class VirtualDataSourceHandler extends PollingDataSourceHandler
@@ -36,6 +36,10 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
 
             if (PointValueType::ALPHANUMERIC()->equals($dataPoint->data_type)) {
                 $this->handleAlphanumericValue($dataSource, $dataPoint, $timestamp);
+            }
+
+            if (PointValueType::BINARY()->equals($dataPoint->data_type)) {
+                $this->handleBinaryValue($dataSource, $dataPoint, $timestamp);
             }
         });
 
@@ -67,25 +71,28 @@ class VirtualDataSourceHandler extends PollingDataSourceHandler
 
     protected function handleNumericValue(DataSource $dataSource, DataPoint $dataPoint, Carbon $timestamp): void
     {
-        try {
-            $value = (new NumericPointValueHandler)->handle($dataSource, $dataPoint, $timestamp);
+        $value = (new NumericPointValueHandler)->handle($dataSource, $dataPoint, $timestamp);
 
-            if ($value) {
-                $this->numericPointValues[] = $value->toArray();
-            }
-        } catch (UnknownProperties $e) {
+        if ($value) {
+            $this->numericPointValues[] = $value->toArray();
         }
     }
 
     protected function handleAlphanumericValue(DataSource $dataSource, DataPoint $dataPoint, Carbon $timestamp): void
     {
-        try {
-            $value = (new AlphanumericPointValueHandler())->handle($dataSource, $dataPoint, $timestamp);
+        $value = (new AlphanumericPointValueHandler())->handle($dataSource, $dataPoint, $timestamp);
 
-            if ($value) {
-                $this->alphanumericPointValues[] = $value->toArray();
-            }
-        } catch (UnknownProperties $e) {
+        if ($value) {
+            $this->alphanumericPointValues[] = $value->toArray();
+        }
+    }
+
+    protected function handleBinaryValue(DataSource $dataSource, DataPoint $dataPoint, Carbon $timestamp): void
+    {
+        $value = (new BinaryPointValueHandler())->handle($dataSource, $dataPoint, $timestamp);
+
+        if ($value !== null) {
+            $this->binaryPointValues[] = $value->toArray();
         }
     }
 

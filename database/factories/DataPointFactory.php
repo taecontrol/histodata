@@ -57,6 +57,20 @@ class DataPointFactory extends Factory
         });
     }
 
+    public function binary(?bool $initialValue = null): DataPointFactory
+    {
+        return $this->state(function () use ($initialValue) {
+            return [
+                'data_type' => PointValueType::BINARY(),
+                'configuration' => [
+                    'model_type' => 'VIRTUAL',
+                    'change_type' => 'RANDOM',
+                    'initial_value' => $initialValue ?: $this->faker->boolean()
+                ]
+            ];
+        });
+    }
+
     /**
      * @throws UnknownProperties
      */
