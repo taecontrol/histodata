@@ -48,6 +48,7 @@ abstract class PointValueHandler
                     data_point_id: $dataPoint->id
                 );
             }
+
             return null;
         } catch (UnknownProperties $_e) {
             return null;

@@ -3,7 +3,6 @@
 
 namespace Taecontrol\Histodata\VirtualDataSource\Support;
 
-
 use Carbon\Carbon;
 use Exception;
 use Taecontrol\Histodata\DataPoint\Models\DataPoint;
@@ -12,7 +11,7 @@ use Taecontrol\Histodata\PointValue\DataTransferObjects\BinaryPointValueDTO;
 
 class BinaryPointValueHandler extends PointValueHandler
 {
-    public function handle(DataSource $dataSource, DataPoint $dataPoint, Carbon $timestamp): BinaryPointValueDTO|null
+    public function handle(DataSource $dataSource, DataPoint $dataPoint, Carbon $timestamp): BinaryPointValueDTO | null
     {
         $value = null;
 
