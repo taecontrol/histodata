@@ -16,12 +16,13 @@ class StoreDataPointTest extends TestCase
 
         (new StoreDataPoint())->execute($dataPointDTO);
 
-        $newDataPoint = DataPoint::find($dataPointDTO->id);
+        $newDataPoint = DataPoint::query()
+            ->where('name', $dataPointDTO->name)
+            ->first();
 
         $this->assertEquals(
-            $dataPointDTO->toArray(),
+            $dataPointDTO->except('id')->toArray(),
             [
-                'id' => $newDataPoint->id,
                 'name' => $newDataPoint->name,
                 'enabled' => $newDataPoint->enabled,
                 'data_source_id' => $newDataPoint->data_source_id,

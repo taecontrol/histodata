@@ -11,7 +11,6 @@ class StoreDataPoint
     public function execute(DataPointDTO $dataPointDTO): DataPointDTO
     {
         $dataPoint = DataPoint::create([
-            'id' => $dataPointDTO->id,
             'name' => $dataPointDTO->name,
             'enabled' => $dataPointDTO->enabled,
             'data_source_id' => $dataPointDTO->data_source_id,

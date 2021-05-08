@@ -16,12 +16,13 @@ class StoreDataSourceTest extends TestCase
 
         (new StoreDataSource())->execute($dataSourceDTO);
 
-        $newDataSource = DataSource::find($dataSourceDTO->id);
+        $newDataSource = DataSource::query()
+            ->where('name', $dataSourceDTO->name)
+            ->first();
 
         $this->assertEquals(
-            $dataSourceDTO->toArray(),
+            $dataSourceDTO->except('id')->toArray(),
             [
-                'id' => $newDataSource->id,
                 'name' => $newDataSource->name,
                 'enabled' => $newDataSource->enabled,
                 'polling' => $newDataSource->polling,

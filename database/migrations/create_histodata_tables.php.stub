@@ -10,7 +10,7 @@ class CreateHistodataTables extends Migration
     public function up()
     {
         Schema::create('data_sources', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->boolean('enabled');
             $table->boolean('polling');
@@ -20,35 +20,35 @@ class CreateHistodataTables extends Migration
         });
 
         Schema::create('data_points', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->boolean('enabled');
             $table->string('data_type');
             $table->json('configuration');
 
-            $table->uuid('data_source_id');
-            $table->uuid('parent_id')->nullable();
+            $table->bigInteger('data_source_id');
+            $table->bigInteger('parent_id')->nullable();
             $table->string('parent_type')->nullable();
 
             $table->timestamps();
         });
 
         Schema::create('numeric_point_values', function (Blueprint $table) {
-            $table->uuid('data_point_id');
+            $table->bigInteger('data_point_id');
             $table->double('value');
             $table->timestamp('timestamp');
         });
         Timescale::createHypertable('numeric_point_values', 'timestamp');
 
         Schema::create('binary_point_values', function (Blueprint $table) {
-            $table->uuid('data_point_id');
+            $table->bigInteger('data_point_id');
             $table->boolean('value');
             $table->timestamp('timestamp');
         });
         Timescale::createHypertable('binary_point_values', 'timestamp');
 
         Schema::create('alphanumeric_point_values', function (Blueprint $table) {
-            $table->uuid('data_point_id');
+            $table->bigInteger('data_point_id');
             $table->string('value');
             $table->timestamp('timestamp');
         });
