@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\Cache;
 use Rennokki\QueryCache\Traits\QueryCacheable;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
-use Taecontrol\Histodata\Support\Traits\UsesUuid;
 
 class DataSource extends Model
 {
     use HasFactory;
-    use UsesUuid;
     use QueryCacheable;
 
     protected static bool $flushCacheOnUpdate = true;

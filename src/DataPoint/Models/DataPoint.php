@@ -12,12 +12,10 @@ use Taecontrol\Histodata\PointValue\Enums\PointValueType;
 use Taecontrol\Histodata\PointValue\Models\AlphanumericPointValue;
 use Taecontrol\Histodata\PointValue\Models\BinaryPointValue;
 use Taecontrol\Histodata\PointValue\Models\NumericPointValue;
-use Taecontrol\Histodata\Support\Traits\UsesUuid;
 
 class DataPoint extends Model
 {
     use HasFactory;
-    use UsesUuid;
     use QueryCacheable;
 
     protected static bool $flushCacheOnUpdate = true;

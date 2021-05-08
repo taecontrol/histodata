@@ -11,7 +11,6 @@ class StoreDataSource
     public function execute(DataSourceDTO $dataSourceDTO): DataSourceDTO
     {
         $dataSource = DataSource::create([
-            'id' => $dataSourceDTO->id,
             'name' => $dataSourceDTO->name,
             'enabled' => $dataSourceDTO->enabled,
             'polling' => $dataSourceDTO->polling,

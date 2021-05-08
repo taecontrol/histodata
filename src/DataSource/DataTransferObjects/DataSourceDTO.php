@@ -9,7 +9,7 @@ use Taecontrol\Histodata\DataSource\Casters\DataSourceConfigurationCaster;
 
 class DataSourceDTO extends DataTransferObject
 {
-    public string $id;
+    public ?int $id;
     public string $name;
     public bool $enabled;
     public bool $polling;
