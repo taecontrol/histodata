@@ -39,7 +39,7 @@ class DataPoint extends Model
         return $this->morphTo();
     }
 
-    public function lastPointValue(): Builder|Model|null
+    public function lastPointValue(): Builder | Model | null
     {
         if (PointValueType::NUMERIC()->equals($this->data_type)) {
             return NumericPointValue::query()
