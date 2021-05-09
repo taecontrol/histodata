@@ -4,10 +4,12 @@ namespace Taecontrol\Histodata\DataPoint\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Rennokki\QueryCache\Traits\QueryCacheable;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use Taecontrol\Histodata\DataPoint\DataTransferObjects\DataPointDTO;
+use Taecontrol\Histodata\DataSource\Models\DataSource;
 use Taecontrol\Histodata\PointValue\Enums\PointValueType;
 use Taecontrol\Histodata\PointValue\Models\AlphanumericPointValue;
 use Taecontrol\Histodata\PointValue\Models\BinaryPointValue;
@@ -27,12 +29,17 @@ class DataPoint extends Model
         'configuration' => 'array',
     ];
 
+    public function dataSource(): BelongsTo
+    {
+        return $this->belongsTo(DataSource::class);
+    }
+
     public function parent(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function lastPointValue(): Builder | Model | null
+    public function lastPointValue(): Builder|Model|null
     {
         if (PointValueType::NUMERIC()->equals($this->data_type)) {
             return NumericPointValue::query()

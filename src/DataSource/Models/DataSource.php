@@ -5,9 +5,11 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
 use Rennokki\QueryCache\Traits\QueryCacheable;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
+use Taecontrol\Histodata\DataPoint\Models\DataPoint;
 use Taecontrol\Histodata\DataSource\DataTransferObjects\DataSourceDTO;
 
 class DataSource extends Model
@@ -22,6 +24,11 @@ class DataSource extends Model
     protected $casts = [
         'configuration' => 'array',
     ];
+
+    public function dataPoints(): HasMany
+    {
+        return $this->hasMany(DataPoint::class);
+    }
 
     public function getUpdatePeriodInSecondsAttribute(): int
     {
